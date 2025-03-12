@@ -1,28 +1,48 @@
-<div class="multas-container">
+
+<div class="container">
   <h2>Cadastro de Multas</h2>
-  <form (ngSubmit)="cadastrarMulta()">
-    <input [(ngModel)]="novaMulta.placa" name="placa" placeholder="Placa do Veículo" required />
-    <input [(ngModel)]="novaMulta.descricao" name="descricao" placeholder="Descrição" required />
-    <input [(ngModel)]="novaMulta.pontos" name="pontos" type="number" placeholder="Pontos" required />
-    <button type="submit">Cadastrar</button>
+  <form [formGroup]="multaForm" (ngSubmit)="onSubmit()">
+
+    <label for="valor">Valor da Multa (R$):</label>
+    <input id="valor" formControlName="valor" type="number" placeholder="Digite o valor">
+    <div *ngIf="multaForm.get('valor')?.invalid && multaForm.get('valor')?.touched">
+      <small *ngIf="multaForm.get('valor')?.errors?.['required']">Valor é obrigatório.</small>
+      <small *ngIf="multaForm.get('valor')?.errors?.['min']">O valor deve ser positivo.</small>
+    </div>
+
+    <label for="data">Data da Multa:</label>
+    <input id="data" formControlName="data" type="date">
+    <div *ngIf="multaForm.get('data')?.invalid && multaForm.get('data')?.touched">
+      <small>Data é obrigatória.</small>
+    </div>
+
+    <label for="pontos">Pontos de Penalidade:</label>
+    <input id="pontos" formControlName="pontos" type="number" placeholder="Digite os pontos">
+    <div *ngIf="multaForm.get('pontos')?.invalid && multaForm.get('pontos')?.touched">
+      <small *ngIf="multaForm.get('pontos')?.errors?.['required']">Pontos são obrigatórios.</small>
+      <small *ngIf="multaForm.get('pontos')?.errors?.['min'] || multaForm.get('pontos')?.errors?.['max']">
+        Os pontos devem estar entre 0 e 7.
+      </small>
+    </div>
+
+    <label for="tipoInfracao">Tipo da Infração:</label>
+    <select id="tipoInfracao" formControlName="tipoInfracao">
+      <option value="" disabled selected>Selecione a infração</option>
+      <option *ngFor="let infracao of tiposInfracao" [value]="infracao">{{ infracao }}</option>
+    </select>
+    <div *ngIf="multaForm.get('tipoInfracao')?.invalid && multaForm.get('tipoInfracao')?.touched">
+      <small>Selecione um tipo de infração.</small>
+    </div>
+
+    <label for="veiculo">Veículo Associado:</label>
+    <select id="veiculo" formControlName="veiculo">
+      <option value="" disabled selected>Selecione um veículo</option>
+      <option *ngFor="let veiculo of veiculos" [value]="veiculo.id">{{ veiculo.placa }}</option>
+    </select>
+    <div *ngIf="multaForm.get('veiculo')?.invalid && multaForm.get('veiculo')?.touched">
+      <small>Selecione um veículo.</small>
+    </div>
+
+    <button type="submit" [disabled]="multaForm.invalid">Cadastrar</button>
   </form>
-
-  <h3>Lista de Multas</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Placa</th>
-        <th>Descrição</th>
-        <th>Pontos</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let multa of multas">
-        <td>{{ multa.placa }}</td>
-        <td>{{ multa.descricao }}</td>
-        <td>{{ multa.pontos }}</td>
-      </tr>
-    </tbody>
-  </table>
 </div>
-

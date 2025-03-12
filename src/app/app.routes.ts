@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
-import { MotoristasComponent } from './motoristas/motoristas.component';
+import { ServicosComponent } from './servicos/servicos.component';
 import { VeiculosComponent } from './veiculos/veiculos.component';
 import { MultasComponent } from './multas/multas.component';
+import {CadastroMotoristasComponent} from './cadastro-motoristas/cadastro-motoristas.component';
+
 
 export const routes: Routes = [
-  { path: 'motoristas', component: MotoristasComponent },
+  { path: 'servicos', component: ServicosComponent },
   { path: 'veiculos', component: VeiculosComponent },
   { path: 'multas', component: MultasComponent },
-  { path: '', redirectTo: '/motoristas', pathMatch: 'full' }
+  { path: 'cadastro-motoristas', component: CadastroMotoristasComponent },
+
+  { path: '', redirectTo: '/servicos', pathMatch: 'full' }
 ];
