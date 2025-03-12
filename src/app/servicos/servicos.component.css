@@ -3,7 +3,7 @@
 /* Conteúdo principal */
 .content {
   max-width: 1200px; /* Define um limite para o conteúdo */
-  margin: 20px auto;
+  margin: auto;
   padding: 10px;
 }
 
@@ -11,7 +11,7 @@ h2 {
   font-family: Inter;
   font-size: 30px;
   font-weight: bold;
-  margin-bottom: 100px;
+  margin-bottom: 30px;
 }
 
 /* Grid de serviços */
